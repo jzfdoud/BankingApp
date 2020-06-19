@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace BankingApp
@@ -7,9 +9,28 @@ namespace BankingApp
     class Account
     {
 
-        public int AccountNumber { get; set; }
-        public double Balance { get; set; } = 0;
+        private static int NextAccountNumber = 1;
+        public int AccountNumber { get; private set; }
+        private double Balance { get; set; } = 0;
         public string Description { get; set; }
+
+        private static Account[] Accounts = new Account[5];
+        private static int NextIndex = 0;
+
+        public static void AddAccount(Account account)
+        {
+            Accounts[NextIndex] = account;
+            NextIndex++;
+        }
+
+        public static void ListAccounts()
+        {
+            for(var idx = 0; idx < NextIndex; idx++)
+            {
+                var account = Accounts[idx];
+                Console.WriteLine($"Id:{account.AccountNumber}; Desc:{account.Description}; Bal:{account.GetBalance()}");
+            }
+        }
 
         public bool Transfer(Account ToAccount, double Amount)
         {
@@ -75,11 +96,17 @@ namespace BankingApp
         }
 
 
-        public Account() {
-            this.AccountNumber = 0;
+        public Account()
+        {
+            this.AccountNumber = NextAccountNumber++;
             this.Description = "New Account";
-
-
         }
+
+        //public static string GetRoutingNumber()
+        //{
+        //      GetRoutingNumber("123 456 789");
+        //}
+
+
     }
 }

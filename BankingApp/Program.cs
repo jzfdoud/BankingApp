@@ -7,6 +7,9 @@ namespace BankingApp
         static void Main(string[] args)
         {
 
+
+           // Console.WriteLine($"Routing number is {Account.GetRoutingNumber()}");
+
             var acct1 = new Account();
             acct1.Deposit(100000);
             acct1.Withdrawl(60000);
@@ -19,6 +22,10 @@ namespace BankingApp
             acct1.Transfer(acct2, 1000.00);
             acct1.Transfer(acct2, 40000.00);
             acct1.Transfer(acct2, 5000.00);
+
+            Account.AddAccount(acct1);
+            Account.AddAccount(acct2);
+            Account.ListAccounts();
 
 
 
