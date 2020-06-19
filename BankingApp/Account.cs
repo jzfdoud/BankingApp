@@ -11,32 +11,64 @@ namespace BankingApp
         public double Balance { get; set; } = 0;
         public string Description { get; set; }
 
-
-        public void Deposit(double Amount)
+        public bool Transfer(Account ToAccount, double Amount)
         {
-            if (Amount <= 0)
+            var Success = Withdrawl(Amount);
+            if (!Success)
             {
-                Console.WriteLine($"{Amount} - Invalid Deposit Amount. Amount must be positive number.");
-                return;
+                Console.WriteLine($"{Amount} - Transfer failed - See log file.");
+                return false;
             }
-            Balance += Amount;
+            Success = ToAccount.Deposit(Amount);
+            if (!Success)
+            {
+                Console.WriteLine($"{Amount} - Transfer failed - See log file.");
+                Deposit(Amount);
+                return false;
+            }
+            return true;
         }
 
-        public void Withdrawl(double Amount)
+        private bool IsAmountNegative(double Amount)
         {
             if (Amount <= 0)
             {
-                Console.WriteLine($"{Amount} - Invalid Withdrawl Amount. Amount must be positive number.");
-                return;
+                Console.WriteLine($"{Amount} - Invalid Amount. Amount must be positive number.");
+                return true;
             }
+            return false;
+        }
+
+        public bool Deposit(double Amount)
+        {
+            if (IsAmountNegative(Amount))
+            {
+                return false;
+            }
+            Balance += Amount;
+            return true;
+        }
+
+        public bool Withdrawl(double Amount)
+        {
+            if (IsAmountNegative(Amount) || InsufficientFunds(Amount))
+            {
+                return false;
+            }
+           
+            Balance -= Amount;
+            return true;
+        }
+
+        private bool InsufficientFunds(double Amount)
+        {
             if (Amount > Balance)
             {
                 Console.WriteLine($"{Amount} - Insufficient Funds, cannot complete withdrawl.");
-                return;
+                return true;
             }
-            Balance -= Amount;
+            return false;
         }
-
         public double GetBalance()
         {
             return Balance;
