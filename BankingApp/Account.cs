@@ -24,14 +24,14 @@ namespace BankingApp
 
         public void Withdrawl(double Amount)
         {
-            if (Amount > Balance)
-            {
-                Console.WriteLine($"{Amount} - Insufficient Funds, cannot complete withdrawl.");
-                return;
-            }
             if (Amount <= 0)
             {
                 Console.WriteLine($"{Amount} - Invalid Withdrawl Amount. Amount must be positive number.");
+                return;
+            }
+            if (Amount > Balance)
+            {
+                Console.WriteLine($"{Amount} - Insufficient Funds, cannot complete withdrawl.");
                 return;
             }
             Balance -= Amount;
