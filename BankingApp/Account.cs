@@ -16,7 +16,7 @@ namespace BankingApp
         {
             if (Amount <= 0)
             {
-                Console.WriteLine("Invalid Deposit Amount, Amount must be positive");
+                Console.WriteLine($"{Amount} - Invalid Deposit Amount. Amount must be positive number.");
                 return;
             }
             Balance += Amount;
@@ -24,9 +24,14 @@ namespace BankingApp
 
         public void Withdrawl(double Amount)
         {
-            if (Amount > Balance || Amount <= 0)
+            if (Amount > Balance)
             {
-                Console.WriteLine("Insufficient Funds");
+                Console.WriteLine($"{Amount} - Insufficient Funds, cannot complete withdrawl.");
+                return;
+            }
+            if (Amount <= 0)
+            {
+                Console.WriteLine($"{Amount} - Invalid Withdrawl Amount. Amount must be positive number.");
                 return;
             }
             Balance -= Amount;
