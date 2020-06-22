@@ -6,9 +6,23 @@ namespace BankingApp
     {
         static void Main(string[] args)
         {
+            var chk1 = new Checking();
+            chk1.Deposit(100);
+            chk1.WriteCheck("Cash", 10, 101);
+            chk1.WriteCheck("Apple", 2);
+            chk1.WriteCheck("Hulu", 12);
+            chk1.WriteCheck("AmazonPrime", 119.99);
+            chk1.Deposit(300);
+            // figure out how to make deposits run before withdrawls
 
 
-           // Console.WriteLine($"Routing number is {Account.GetRoutingNumber()}");
+            var sav1 = new Savings();
+            sav1.InterestRate(0.12);
+            sav1.Deposit(100);
+            sav1.CalculateAndDepositInterest(9);
+            Console.WriteLine($"Savings Balance is ${sav1.GetBalance()}.");
+
+            Console.WriteLine($"Routing number is {Account.GetRoutingNumber()}");
 
             var acct1 = new Account();
             acct1.Deposit(100000);

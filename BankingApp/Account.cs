@@ -6,7 +6,7 @@ using System.Text;
 
 namespace BankingApp
 {
-    class Account
+     public class Account
     {
 
         private static int NextAccountNumber = 1;
@@ -95,18 +95,16 @@ namespace BankingApp
             return Balance;
         }
 
+        public static string GetRoutingNumber()
+        {
+            return "123 456 789";
+        }
 
         public Account()
         {
             this.AccountNumber = NextAccountNumber++;
             this.Description = "New Account";
         }
-
-        //public static string GetRoutingNumber()
-        //{
-        //      GetRoutingNumber("123 456 789");
-        //}
-
 
     }
 }
