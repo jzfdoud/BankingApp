@@ -66,17 +66,26 @@ namespace BankingApp
             {
                 return false;
             }
+            Console.WriteLine($"{Amount} has been deposited. Balance is now {Balance}.");
             Balance += Amount;
             return true;
         }
 
         public bool Withdrawl(double Amount)
         {
-            if (IsAmountNegative(Amount) || InsufficientFunds(Amount))
+            if (IsAmountNegative(Amount)) 
             {
+               return false;
+            }
+            try
+            {
+                InsufficientFunds(Amount);
+            } catch (Exceptions.InsufficientFundsException ex)
+            {
+                Console.WriteLine(ex.Message);
                 return false;
             }
-           
+
             Balance -= Amount;
             return true;
         }
@@ -85,8 +94,15 @@ namespace BankingApp
         {
             if (Amount > Balance)
             {
-                Console.WriteLine($"{Amount} - Insufficient Funds, cannot complete withdrawl.");
-                return true;
+                //Console.WriteLine($"{Amount} - Insufficient Funds, cannot complete withdrawl.");
+                var msg = $"Balance is {Balance}; Withdrawal amount is {Amount}.";
+                var ex = new Exceptions.InsufficientFundsException(msg);
+                ex.AccountNumber = AccountNumber;
+                ex.AccountDescription = Description;
+                ex.Balance = Balance;
+                ex.Amount = Amount;
+                throw ex;
+
             }
             return false;
         }
