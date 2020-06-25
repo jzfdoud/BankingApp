@@ -8,18 +8,20 @@ namespace BankingApp
         {
             var chk1 = new Checking();
             chk1.Deposit(100);
+            chk1.Deposit(300);
             chk1.WriteCheck("Cash", 10, 101);
             chk1.WriteCheck("Apple", 2);
             chk1.WriteCheck("Hulu", 12);
             chk1.WriteCheck("AmazonPrime", 119.99);
-            chk1.Deposit(300);
-            // figure out how to make deposits run before withdrawls
+            // figure out how to make deposits run before withdrawls-- ken says cant, just write them in the order I want
 
 
             var sav1 = new Savings();
             sav1.InterestRate(0.12);
             sav1.Deposit(100);
             sav1.CalculateAndDepositInterest(9);
+            //Console.WriteLine($"{InterestToBeDeposited} in Interest has been deposited.");
+            // what did I do why I cant use the method in this string, check savings class. Tried outting it there after interest calc.
             Console.WriteLine($"Savings Balance is ${sav1.GetBalance()}.");
 
             Console.WriteLine($"Routing number is {Account.GetRoutingNumber()}");
